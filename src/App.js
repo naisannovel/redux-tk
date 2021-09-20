@@ -8,15 +8,12 @@ function App() {
 
   useEffect(()=>{
     store.dispatch(serviceLoading(true))
-    store.dispatch(serviceRequest({id:1}))
-    store.dispatch(serviceRequest({id:2}))
-    store.dispatch(serviceRequest({id:3}))
+    store.dispatch(serviceRequest({name:'Internal Transmission Repair'}))
+    store.dispatch(serviceRequest({name:'Wheel Alignment Special'}))
+    store.dispatch(serviceRequest({name:'Brake Fluid Flush Service'}))
     store.dispatch(serviceLoading(false))
   },[])
 
-
-  // store().dispatch(serviceRequestedFailed('error failed'));
-  // store().dispatch(serviceRequested(false));
   return (
     <div>
       <h1>hello world</h1>
