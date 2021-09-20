@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import configureStore from "./store/configureStore";
+import { serviceRequest, serviceLoading } from './store/service';
+
+const store = configureStore();
 
 function App() {
+
+  useEffect(()=>{
+    store.dispatch(serviceLoading(true))
+    store.dispatch(serviceRequest({id:1}))
+    store.dispatch(serviceRequest({id:2}))
+    store.dispatch(serviceRequest({id:3}))
+    store.dispatch(serviceLoading(false))
+  },[])
+
+
+  // store().dispatch(serviceRequestedFailed('error failed'));
+  // store().dispatch(serviceRequested(false));
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>hello world</h1>
     </div>
   );
 }
