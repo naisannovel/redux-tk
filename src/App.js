@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import configureStore from "./store/configureStore";
 import { serviceRequested, serviceLoading } from './store/service';
-import { loadServices } from "./store/service";
+import { loadServices, postService,updateService } from "./store/service";
 
 const store = configureStore();
 
@@ -16,8 +16,11 @@ function App() {
 
 
 
-    store.dispatch(loadServices());
-
+    store.dispatch(updateService(3,{
+      id: 3,
+      name: 'abcdefghijklmnopqrstuvwxyz'
+    }))
+setTimeout(()=>store.dispatch(loadServices()),[])
 
   },[])
 

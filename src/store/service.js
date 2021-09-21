@@ -39,6 +39,25 @@ export const loadServices = ()=>
         onError: serviceRequestFailed.type
     })
 
+export const postService = service =>
+    apiCallBegan({
+        url: url,
+        method: 'post',
+        data: service,
+        onStart: serviceRequested.type,
+        onSuccess: serviceReceived.type,
+        onError: serviceRequestFailed.type
+    })
+
+export const updateService = (id,service)=>
+    apiCallBegan({
+        url: `${url}/${id}`,
+        method: 'patch',
+        data: service,
+        onStart: serviceRequested.type,
+        onSuccess: serviceReceived.type,
+        onError: serviceRequestFailed.type
+    })
 
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
