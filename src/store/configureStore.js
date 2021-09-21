@@ -2,13 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import { reducer } from './reducer';
 import customLogger from './middleware/loggerCustomMiddleware';
 import customThunk from './middleware/thunkCustomMiddleware';
-import api from './middleware/api';
+import apiMiddleware from './middleware/apiMiddleware';
 
 
 const store = ()=>{
     return configureStore({
         reducer: reducer,
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api)   // customThunk, customLogger
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiMiddleware)   // customThunk, customLogger
     })
 }
 

@@ -1,11 +1,14 @@
 import axios from "axios";
 import * as actions from '../apiActionTypes';
 
-const api = ({ dispatch }) => next => async action =>{
+const apiMiddleware = ({ dispatch }) => next => async action =>{
     if(action.type !== actions.apiCallBegan.type) return next(action);
 
+
+
+    const { url, method, data, onStart, onSuccess, onError } = action.payload;
+    dispatch({ type: onStart })
     next(action);
-    const { url, method, data, onSuccess, onError } = action.payload;
 
     try{
         const response = await axios.request({
@@ -16,21 +19,21 @@ const api = ({ dispatch }) => next => async action =>{
         })
 
         // General
-        dispatch(actions.apiCallSuccess(response.data));
+        // dispatch(actions.apiCallSuccess(response.data));
         // Specific
         if(onSuccess) dispatch({ type: onSuccess, payload: response.data })
 
     }catch(error){
 
         // General
-        dispatch(actions.apiCallFailed(error));
+        // dispatch(actions.apiCallFailed(error.message));
         // Specific
-        if(onError) dispatch({ type: onError, payload: error })
+        if(onError) dispatch({ type: onError, payload: error.message })
         
     }
 }
 
-export default api;
+export default apiMiddleware;
 
 
 // const action = {

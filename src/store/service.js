@@ -11,16 +11,21 @@ const slice = createSlice({
         errorMsg: null
     },
     reducers: {
-        serviceLoading: (service, action) =>{
-            service.loading = action.payload
-        },
         serviceRequested: (service, action) =>{
+            service.loading = true
+        },
+        serviceReceived: (service, action) =>{
+            service.loading = false
             service.list.push(action.payload)
+        },
+        serviceRequestFailed: (service, action) =>{
+            service.loading = false
+            service.errorMsg = action.payload
         }
     }
 })
 
-export const { serviceLoading, serviceRequested } = slice.actions
+export const { serviceRequested, serviceReceived, serviceRequestFailed } = slice.actions
 export default slice.reducer;
 
 // action creators
@@ -29,24 +34,26 @@ const url = '/services'
 export const loadServices = ()=>
     apiCallBegan({
         url: url,
-        onSuccess: serviceRequested.type
+        onStart: serviceRequested.type,
+        onSuccess: serviceReceived.type,
+        onError: serviceRequestFailed.type
     })
 
 
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 // // action
-// export const serviceRequest = createAction('serviceRequest');
-// export const serviceLoading = createAction('serviceLoading');
-// console.log(serviceLoading());  // {type: 'serviceLoading', payload: undefined}
-// console.log(serviceLoading(true));  // {type: 'serviceLoading', payload: true}
+// export const serviceReceived = createAction('serviceReceived');
+// export const serviceRequested = createAction('serviceRequested');
+// console.log(serviceRequested());  // {type: 'serviceRequested', payload: undefined}
+// console.log(serviceRequested(true));  // {type: 'serviceRequested', payload: true}
 
 // // reducer
 // export default createReducer({list:[],loading:false},{
-//     [serviceRequest.type]: (service, action)=>{
+//     [serviceReceived.type]: (service, action)=>{
 //         service.list.push(action.payload);
 //     },
-//     [serviceLoading.type]: (service, action)=>{
+//     [serviceRequested.type]: (service, action)=>{
 //         service.loading = action.payload;
 //     },
 // })
