@@ -16,11 +16,11 @@ function App() {
 
 
 
-    store.dispatch(updateService(3,{
-      id: 3,
-      name: 'abcdefghijklmnopqrstuvwxyz'
-    }))
-setTimeout(()=>store.dispatch(loadServices()),[])
+//     store.dispatch(updateService(3,{
+//       id: 3,
+//       name: 'abcdefghijklmnopqrstuvwxyz'
+//     }))
+// setTimeout(()=>store.dispatch(loadServices()),[])
 
   },[])
 
