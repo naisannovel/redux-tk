@@ -1,17 +1,24 @@
 import React, { useEffect } from "react";
 import configureStore from "./store/configureStore";
-import { serviceRequest, serviceLoading } from './store/service';
+import { serviceRequested, serviceLoading } from './store/service';
+import { loadServices } from "./store/service";
 
 const store = configureStore();
 
 function App() {
 
   useEffect(()=>{
-    store.dispatch(serviceLoading(true))
-    store.dispatch(serviceRequest({name:'Internal Transmission Repair'}))
-    store.dispatch(serviceRequest({name:'Wheel Alignment Special'}))
-    store.dispatch(serviceRequest({name:'Brake Fluid Flush Service'}))
-    store.dispatch(serviceLoading(false))
+    // store.dispatch(serviceLoading(true))
+    // store.dispatch(serviceRequested({name:'Internal Transmission Repair'}))
+    // store.dispatch(serviceRequested({name:'Wheel Alignment Special'}))
+    // store.dispatch(serviceRequested({name:'Brake Fluid Flush Service'}))
+    // store.dispatch(serviceLoading(false))
+
+
+
+    store.dispatch(loadServices());
+
+
   },[])
 
   return (
@@ -22,3 +29,14 @@ function App() {
 }
 
 export default App;
+
+
+
+//     type: 'apiCallBegan',
+//     payload:{
+//         url:'/services',
+//         method: 'get',
+//         data: {},
+//         onSuccess: 'servicesReceived',
+//         onError: 'servicesRequestedFailed'
+//     }

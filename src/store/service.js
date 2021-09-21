@@ -1,4 +1,5 @@
 import { createAction, createReducer, createSlice } from '@reduxjs/toolkit';
+import { apiCallBegan } from './apiActionTypes';
 
 
 const slice = createSlice({
@@ -13,14 +14,23 @@ const slice = createSlice({
         serviceLoading: (service, action) =>{
             service.loading = action.payload
         },
-        serviceRequest: (service, action) =>{
+        serviceRequested: (service, action) =>{
             service.list.push(action.payload)
         }
     }
 })
 
-export const { serviceLoading, serviceRequest } = slice.actions
+export const { serviceLoading, serviceRequested } = slice.actions
 export default slice.reducer;
+
+// action creators
+
+const url = '/services'
+export const loadServices = ()=>
+    apiCallBegan({
+        url: url,
+        onSuccess: serviceRequested.type
+    })
 
 
 //-------------------------------------------------------------------------
